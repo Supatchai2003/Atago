@@ -75,7 +75,6 @@ def calculate_ticketprice():
         result.config(text=f"ราคาตั๋ว : {ticketprice} บาท",fg="black")
         return ticketprice #คืนค่าราคาตั๋ว
     except ValueError:
-        messagebox.showerror("ข้อผิดพลาด", "กรุณาเลือกสถานีให้ถูกต้อง")
         return None
 
 # funtion การซื้อตั๋ว
@@ -147,7 +146,7 @@ frame.grid_rowconfigure(3, weight=1)
 frame.grid_rowconfigure(4, weight=1)
 frame.grid_rowconfigure(5, weight=1)
 frame.grid_rowconfigure(6, weight=1)
-frame.grid_rowconfigure(7, weight=1)
+
 
 
 # ชื่อของหน้า
@@ -174,21 +173,21 @@ tk.Label(frame, text="ใส่จำนวนเงิน", font=("Arial", 14),
 paymentEntry = tk.Entry(frame, font=("Arial", 14), width=30)
 paymentEntry.grid(row=4, column=1, pady=7, sticky="w")
 
-# ปุ่มคำนวณราคาตั๋ว
-btcalculate = tk.Button(frame, text="คำนวณราคาตั๋ว", command=calculate_ticketprice, font=("Arial", 14), bg="#81C784", fg="black", width=15, height=2)
-btcalculate.grid(row=5, column=0, columnspan=2, pady=15, sticky="nsew")
-
 # ปุ่มซื้อตั๋ว
 btsell = tk.Button(frame, text="ซื้อตั๋ว", command=sellTicket, font=("Arial", 14), bg="#66BB6A", fg="black", width=15, height=2)
-btsell.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
+btsell.grid(row=5, column=0, columnspan=2, pady=10, sticky="nsew")
 
 # ปุ่มดูประวัติการขายตั๋วรถไฟ 
 btviewlist =tk.Button(frame,text="ดูรายการ",command=display_viewlist, font=("Arial", 14), bg="#66BB6A", fg="black", width=15, height=2)
-btviewlist.grid(row=7, column=0, columnspan=2, pady=10, sticky="nsew")
+btviewlist.grid(row=6, column=0, columnspan=2, pady=10, sticky="nsew")
 
 #การแสดงผลลัพธ์
 result = tk.Label(frame,text="",bg="#A5D6A7", fg="black")
-result.grid(row=8, column=0, columnspan=2, pady=10, sticky="nsew")
+result.grid(row=7, column=0, columnspan=2, pady=10, sticky="nsew")
+# เพิ่มการผูกฟังก์ชันคำนวณราคาตั๋วกับ Combobox และ Entry
+startStation.bind("<<ComboboxSelected>>", lambda event: calculate_ticketprice())
+endStation.bind("<<ComboboxSelected>>", lambda event: calculate_ticketprice())
+ticketCountEntry.bind("<KeyRelease>", lambda event: calculate_ticketprice())
 
 #สร้าง object ของ คลาส Trainticket_BTS_GreenLine
 ticket = Trainticket_BTS_GreenLine()
